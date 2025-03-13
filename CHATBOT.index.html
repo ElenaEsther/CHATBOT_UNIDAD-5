@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot - Módulo de Digitalización</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            overflow: hidden;
+        }
+        .chat-container {
+            width: 350px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .chat-header {
+            background: #0044cc;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+        .chat-box {
+            height: 250px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        .user-message, .bot-message {
+            padding: 8px;
+            margin: 5px;
+            border-radius: 10px;
+        }
+        .user-message {
+            background: #d1e7ff;
+            align-self: flex-end;
+        }
+        .bot-message {
+            background: #e1e1e1;
+            align-self: flex-start;
+        }
+        .chat-input {
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            border-top: 1px solid #ccc;
+            background: #fff;
+        }
+        .question-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .question-buttons button {
+            background: #0044cc;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .chat-icon {
+            position: fixed;
+            bottom: 50px;
+            right: 20px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #0044cc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            animation: bounce 1.5s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        .chat-icon img {
+            width: 60px;
+            height: 60px;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-icon" onclick="toggleChat()">
+        <img src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png" alt="Chatbot">
+    </div>
+
+    <div class="chat-container" id="chatContainer">
+        <div class="chat-header">Chatbot - Módulo de Digitalización</div>
+        <div class="chat-box" id="chatBox">
+            <div class="bot-message">Hola, soy el chatbot de la Unidad 5. ¿En qué puedo ayudarte con la digitalización en servicios?</div>
+        </div>
+        <div class="chat-input">
+            <div class="question-buttons">
+                <button onclick="sendPredefinedMessage('eficiencia')">¿Cómo mejora la eficiencia?</button>
+                <button onclick="sendPredefinedMessage('personalización')">¿Cómo personaliza los servicios?</button>
+                <button onclick="sendPredefinedMessage('competitividad')">¿Cómo impacta en la competitividad?</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleChat() {
+            var chatContainer = document.getElementById("chatContainer");
+            if (chatContainer.style.display === "none" || chatContainer.style.display === "") {
+                chatContainer.style.display = "block";
+            } else {
+                chatContainer.style.display = "none";
+            }
+        }
+
+        function sendPredefinedMessage(input) {
+            var chatBox = document.getElementById("chatBox");
+            
+            var userMessage = document.createElement("div");
+            userMessage.className = "user-message";
+            userMessage.textContent = "" + document.querySelector(`button[onclick*='${input}']`).textContent;
+            chatBox.appendChild(userMessage);
+            
+            setTimeout(() => {
+                var botMessage = document.createElement("div");
+                botMessage.className = "bot-message";
+                botMessage.textContent = getBotResponse(input);
+                chatBox.appendChild(botMessage);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }, 1000);
+        }
+
+        function getBotResponse(input) {
+            if (input === "eficiencia") {
+                return "La digitalización mejora la eficiencia, reduciendo tiempos y costos en los procesos de producción de servicios.";
+            }
+            if (input === "personalización") {
+                return "Permite personalizar los servicios según las necesidades del cliente, aumentando la satisfacción.";
+            }
+            if (input === "competitividad") {
+                return "Impacta en la competitividad al mejorar la calidad y optimización de recursos en la producción de servicios.";
+            }
+            return "No estoy seguro sobre eso, pero puedo explicarte cómo la digitalización impacta en la producción de servicios.";
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
